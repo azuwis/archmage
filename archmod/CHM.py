@@ -60,6 +60,8 @@ class CHMDir(Cached):
         # Get and parse 'Table of Contents'
         try:
             self.topicstree = self.get_entry(self.topics)
+            if self.topics_encoding:
+                self.topicstree = self.topicstree.decode(self.topics_encoding).encode('utf-8')
         except AttributeError:
             self.topicstree = None
         self.contents = SitemapFile(self.topicstree).parse()
